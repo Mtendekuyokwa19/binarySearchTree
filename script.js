@@ -1,169 +1,107 @@
-function node() {
+class Node{
 
 
-  return{value:null,nextNode:null}
+    constructor(data,left=null,right=null){
+
+        data=data;
+        left=left;
+        right=right
+
+    }
+
 }
 
 
+class Tree{
+
+    constructor(array){
+
+        array=array;
+
+    }
+
+root=root;
+
+buildTree(){
+    
 
 
-let lastItem=node();
-lastItem.value="lastItem";
+}
+    
 
-let thirdItem=node();
-thirdItem.value="thirdItem";
-thirdItem.nextNode=lastItem;
-
-let secondItem=node()
-secondItem.value="secondItem";
-secondItem.nextNode=thirdItem;
-
-let Head=node();
-Head.value="Head";
-Head.nextNode=secondItem;
-
-
-let extraItem=node()
-extraItem.value="sade";
-
-
-class LinkedList{
-
-  Head=Head;
-  tail=this.transverse()
-
-append(newNode){
-
-  if(Head===undefined){
-    Head=newNode
-
-    return 
-  }
-
-  newNode.nextNode=null;
-this.transverse(Head).nextNode=newNode;
 
 
 
 }
-prepend(node){
-
-  node.nextNode=Head;
-  this.Head=node;
 
 
+function removeDuplicates(array) {
+    let sortedArray=mergeSort(array);
+    let unduplicated=[]
+
+    for (let i = 0; i < sortedArray.length; i++) {
+      
+   
+        
+    }
+    
+    return sortedArray
 }
 
-size(node=this.Head,length=1){
+console.log(removeDuplicates([1,14,2,7,8,8,1,19,8]))
 
-if(node.nextNode===null){
-
-  return length;
-}
-
-length++;
-return this.size(node.nextNode,length)
-
-
-}
-
-transverse(Head=this.Head){
-
-  if(Head.nextNode===null){
-
-    return Head
+function mergeSort(array) {
+    if (array.length === 1) {
+      return array;
+    }
+  
+    let length = Math.floor(array.length / 2);
+  
+    let leftArray = copy(array, 0, length);
+    let rightArray = copy(array, length, array.length);
+  
+    let sortedLeftArray = mergeSort(leftArray);
+    let sortedRightArray = mergeSort(rightArray);
+  
+    let mergedArray = merge(sortedLeftArray, sortedRightArray);
+    return mergedArray;
   }
-
- 
-  return this.transverse(Head.nextNode)
-
-
-}
-
-at(index,locatetPos=1,node=this.Head){
-
-  if (index==locatetPos) {
-
-    return node
+  
+  function merge(firstArray, secondArray) {
+    let newArray = [];
+    while (!(firstArray[0] === undefined || secondArray[0] === undefined)) {
+      if (firstArray[0] > secondArray[0]) {
+        newArray[newArray.length] = secondArray[0];
+        secondArray.splice(0, 1);
+      } else if (firstArray[0] === secondArray[0]) {
+        newArray[newArray.length] = secondArray[0];
+        newArray[newArray.length] = firstArray[0];
+        firstArray.splice(0, 1);
+        secondArray.splice(0, 1);
+      } else {
+        newArray[newArray.length] = firstArray[0];
+  
+        firstArray.splice(0, 1);
+      }
+    }
+  
+    firstArray.forEach((element) => {
+      newArray[newArray.length] = element;
+    });
+  
+    secondArray.forEach((element) => {
+      newArray[newArray.length] = element;
+    });
+  
+    return newArray;
   }
-
-  else if(node.nextNode==null){
-    return "not found"
+  
+  function copy(array, start, end) {
+    let newArray = [];
+  
+    for (let i = start; i < end; i++) {
+      newArray[newArray.length] = array[i];
+    }
+  
+    return newArray;
   }
-  locatetPos++;
-
-  return this.at(index,locatetPos,node.nextNode)
-
-
-}
-
- pop(){
-let beforeLastnode=this.at(this.size()-1)
-beforeLastnode.nextNode=null
-
-
- }
-
- contains(value,node=this.Head){
-
-  if (node.value===value) {
-
-    return true
-  }
-
-  else if(node.nextNode===null){
-
-    return false
-  }
-
-
-return this.contains(value,node.nextNode)
-
- }
-
- find(value,node=this.Head,length=1){
-
-  if (node.value===value) {
-
-    return length
-  }
-
-  else if(node.nextNode===null){
-
-    return "not found"
-  }
-
-length++
-return this.find(value,node.nextNode,length)
-
-
- }
-
- toString(node=this.Head,stringFormat=""){
-
-  if(node.nextNode===null){
-
-    return stringFormat=stringFormat+node.value
-  }
-
-
-  return this.toString(node.nextNode,stringFormat=stringFormat+node.value+" >> ")
-
- }
-
- removesAt(index){
-
-  let nodeBefore=this.at(index-1)
-  let nodeAfter=this.at(index+1)
-  nodeBefore.nextNode=nodeAfter;
- }
-}
-
-let LinkedListFunctionalities=new LinkedList();
-
-
-
-console.log(LinkedListFunctionalities.pop())
-
-// LinkedListFunctionalities.removesAt(2)
-console.log(LinkedListFunctionalities.size())
