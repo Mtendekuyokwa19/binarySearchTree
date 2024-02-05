@@ -1,11 +1,11 @@
-class Node{
+class node{
 
 
-    constructor(data,left=null,right=null){
+    constructor(root,left=null,right=null){
 
-        data=data;
-        left=left;
-        right=right
+       this.root=root;
+       this.left=left;
+       this.right=right
 
     }
 
@@ -16,39 +16,97 @@ class Tree{
 
     constructor(array){
 
-        array=array;
+        this.array=this.removeDuplicates(array)
 
     }
 
-root=root;
 
-buildTree(){
-    
 
+
+
+get root(){
+
+
+  return this.buildTree(this.array,0,this.array.length-1)
+}
+
+buildTree(array,start=0,end=this.array.length-1){
+ 
+ 
+  
+  if(start>end){
+
+
+    return null
+  }
+
+  let mid=parseInt((start+end)/2);
+
+  let branch=new node(array[mid]);
+
+
+  branch.left=this.buildTree(array,start,mid-1)
+  branch.right=this.buildTree(array,mid+1,end)
+  
+
+ 
+
+
+  
+  
+
+return branch
 
 }
     
 
+removeDuplicates(array) {
+  let sortedArray=mergeSort(array);
+  let unduplicated=[]
+  
 
+  for (let i = 0; i < sortedArray.length; i++) {
 
+  unduplicated.push(sortedArray[i]);
+  
+  if(unduplicated[unduplicated.length-1]==unduplicated[unduplicated.length-2]){
 
-}
+    unduplicated.pop()
 
-
-function removeDuplicates(array) {
-    let sortedArray=mergeSort(array);
-    let unduplicated=[]
-
-    for (let i = 0; i < sortedArray.length; i++) {
+  }
       
-   
-        
-    }
-    
-    return sortedArray
+  }
+  
+  return unduplicated
 }
 
-console.log(removeDuplicates([1,14,2,7,8,8,1,19,8]))
+
+insert(value,branch=this.root){
+
+ if(branch==null){
+
+  let leaf=new node(value)
+
+  return leaf
+ }
+
+
+ if(value>branch.root){
+  branch.right=this.insert(value,branch.right)
+ }
+
+ else if (value<branch.root) {
+  branch.left=this.insert(value,branch.left)
+ }
+ 
+ return branch
+}
+
+}
+
+
+
+
 
 function mergeSort(array) {
     if (array.length === 1) {
@@ -105,3 +163,28 @@ function mergeSort(array) {
   
     return newArray;
   }
+
+ let trial=new Tree([1,2,3,4,5,5,5])
+
+
+const prettyPrint = (node, prefix = "", isLeft = true) => {
+  if (node === null) {
+    return;
+  }
+  if (node.right !== null) {
+    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+  }
+  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.root}`);
+  if (node.left !== null) {
+    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+  }
+};
+
+
+
+
+
+console.log(trial.buildTree(trial.array),trial.root)
+prettyPrint(trial.insert())
+
+// prettyPrint(trial.root)
