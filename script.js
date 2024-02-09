@@ -102,6 +102,98 @@ insert(value,branch=this.root){
  return branch
 }
 
+delete(value,branch=this.root){
+ 
+ 
+if(value===branch.right.root){
+  if(branch.right.right===null&&branch.right.left==null){
+
+    branch.right=null
+  }
+
+  else if(branch.right.right!=null&&branch.right.left===null){
+
+    branch.right=branch.right.right;
+  }
+
+  else if(branch.right.right!=null&&branch.right.left!=null){
+    
+    this.getTheSecondLargestNode(branch.right)
+  
+
+  }
+
+}
+
+else if (value===branch.left.root){
+
+  if (branch.left.left===null&&branch.left.right===null) {
+    branch.left=null
+  
+    
+  }
+
+
+  else if(branch.left.left!=null&&branch.left.right===null){
+
+      branch.left=branch.left.left
+     
+
+  }
+
+  else if(branch.right.right!=null&&branch.right.left!=null){
+
+    this.getTheSecondLargestNode(branch.left)
+
+  }
+
+  
+
+}
+else if(value>branch.root){
+
+  this.delete(value,branch.right)
+}
+
+else if(value<branch.root){
+  this.delete(value,branch.left)
+
+
+}
+
+else if(branch.root===value){
+
+ this.getTheSecondLargestNode(branch.right)
+
+}
+
+
+return branch
+}
+
+getTheSecondLargestNode(node,secondSmallest=undefined){
+
+  if(node.left===null){
+
+    secondSmallest=node
+    console.log(node)
+return secondSmallest
+
+
+  }
+
+
+
+
+  return this.getTheSecondLargestNode(node.right,secondSmallest)
+
+
+
+
+
+
+}
+
 }
 
 
@@ -164,7 +256,7 @@ function mergeSort(array) {
     return newArray;
   }
 
- let trial=new Tree([1,2,3,4,5,5,5])
+ let trial=new Tree([1,2,3,4,5,5,5,6,7,8,9])
 
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -181,10 +273,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 
+prettyPrint(trial.delete(9))
 
 
 
-console.log(trial.buildTree(trial.array),trial.root)
-prettyPrint(trial.insert())
-
-// prettyPrint(trial.root)
