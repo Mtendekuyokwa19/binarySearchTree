@@ -118,7 +118,10 @@ if(value===branch.right.root){
 
   else if(branch.right.right!=null&&branch.right.left!=null){
     
-    this.getTheSecondLargestNode(branch.right)
+    let replaceValue=this.getTheSecondLargestNode(branch.right)
+    console.log(replaceValue,"freak")
+    branch.right.root=replaceValue.right.root;
+    replaceValue.right=replaceValue.right.right
   
 
   }
@@ -143,7 +146,14 @@ else if (value===branch.left.root){
 
   else if(branch.right.right!=null&&branch.right.left!=null){
 
-    this.getTheSecondLargestNode(branch.left)
+    let replaceValue=this.getTheSecondLargestNode(branch.left)
+
+
+
+branch.left.root=replaceValue.right.root;
+    // branch.root=;
+    replaceValue.right=replaceValue.right.right
+
 
   }
 
@@ -162,8 +172,13 @@ else if(value<branch.root){
 }
 
 else if(branch.root===value){
+let oldNode=branch;
 
- this.getTheSecondLargestNode(branch.right)
+
+let replaceValue=this.getTheSecondLargestNode(branch.right)
+oldNode.root=replaceValue.left.root
+replaceValue.left=null
+
 
 }
 
@@ -173,14 +188,16 @@ return branch
 
 getTheSecondLargestNode(node,secondSmallest=undefined){
 
-  if(node.left===null){
+  if(node.left.left===null){
 
     secondSmallest=node
-    console.log(node)
+
 return secondSmallest
 
 
   }
+
+
 
 
 
@@ -256,7 +273,7 @@ function mergeSort(array) {
     return newArray;
   }
 
- let trial=new Tree([1,2,3,4,5,5,5,6,7,8,9])
+ let trial=new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -273,7 +290,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 
-prettyPrint(trial.delete(9))
+prettyPrint(trial.root)
 
 
 
