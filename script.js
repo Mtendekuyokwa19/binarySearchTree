@@ -118,11 +118,12 @@ if(value===branch.right.root){
 
   else if(branch.right.right!=null&&branch.right.left!=null){
     
-    let replaceValue=this.getTheSecondLargestNode(branch.right)
-    console.log(replaceValue,"freak")
-    branch.right.root=replaceValue.right.root;
-    replaceValue.right=replaceValue.right.right
-  
+    let replaceValue=this.getTheSecondLargestNode(branch.right.right)
+   
+    branch.right.root=replaceValue.left.root;
+   replaceValue.left=null
+    
+    console.log(replaceValue)
 
   }
 
@@ -139,19 +140,24 @@ else if (value===branch.left.root){
 
   else if(branch.left.left!=null&&branch.left.right===null){
 
-      branch.left=branch.left.left
+      branch.left=branch.left.right
      
 
   }
+ else if(branch.left.left===null&&branch.left.right!=null){
 
+      branch.left=branch.left.right
+     
+
+  }
   else if(branch.right.right!=null&&branch.right.left!=null){
 
-    let replaceValue=this.getTheSecondLargestNode(branch.left)
-
+    let replaceValue=this.getTheSecondLargestNode(branch)
+console.log("shaha")
 
 
 branch.left.root=replaceValue.right.root;
-    // branch.root=;
+
     replaceValue.right=replaceValue.right.right
 
 
@@ -173,11 +179,18 @@ else if(value<branch.root){
 
 else if(branch.root===value){
 let oldNode=branch;
-
+console.log("shshs")
 
 let replaceValue=this.getTheSecondLargestNode(branch.right)
 oldNode.root=replaceValue.left.root
-replaceValue.left=null
+
+
+if (replaceValue.left.right!=null) {
+  replaceValue.left=replaceValue.left.right
+
+
+  
+}
 
 
 }
@@ -188,7 +201,7 @@ return branch
 
 getTheSecondLargestNode(node,secondSmallest=undefined){
 
-  if(node.left.left===null){
+  if(node.left===null){
 
     secondSmallest=node
 
@@ -197,12 +210,19 @@ return secondSmallest
 
   }
 
+  else if(node.left.left===null){
+    secondSmallest=node
+
+return secondSmallest
+
+  }
 
 
 
 
 
-  return this.getTheSecondLargestNode(node.right,secondSmallest)
+
+  return this.getTheSecondLargestNode(node.left,secondSmallest)
 
 
 
@@ -273,7 +293,7 @@ function mergeSort(array) {
     return newArray;
   }
 
- let trial=new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+ let trial=new Tree([1,23,45,67,2,2,6,9,17,5,5,2,4,67,8,9,53,223])
 
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -291,6 +311,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 
 prettyPrint(trial.root)
+prettyPrint(trial.delete(67))
 
 
 
