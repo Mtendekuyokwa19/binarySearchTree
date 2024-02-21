@@ -17,18 +17,18 @@ class Tree{
     constructor(array){
 
         this.array=this.removeDuplicates(array)
+        this.buildTree(array)
 
     }
 
 
+ root=new node();
 
 
 
-get root(){
 
+  
 
-  return this.buildTree(this.array,0,this.array.length-1)
-}
 
 buildTree(array,start=0,end=this.array.length-1){
  
@@ -54,11 +54,12 @@ buildTree(array,start=0,end=this.array.length-1){
 
   
   
-
+this.root=branch;
 return branch
 
 }
     
+
 
 removeDuplicates(array) {
   let sortedArray=mergeSort(array);
@@ -309,9 +310,11 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+trial.insert(3)
+
 
 prettyPrint(trial.root)
-prettyPrint(trial.delete(67))
+
 
 
 
