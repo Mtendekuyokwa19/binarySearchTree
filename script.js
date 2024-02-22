@@ -14,10 +14,11 @@ class node{
 
 class Tree{
 
-    constructor(array){
+    constructor(arraySet){
 
-        this.array=this.removeDuplicates(array)
-        this.buildTree(array)
+        this.array=this.removeDuplicates(arraySet)
+    
+        this.buildTree(this.removeDuplicates(arraySet))
 
     }
 
@@ -77,7 +78,7 @@ removeDuplicates(array) {
   }
       
   }
-  
+
   return unduplicated
 }
 
@@ -104,128 +105,131 @@ insert(value,branch=this.root){
 }
 
 delete(value,branch=this.root){
- 
- 
-if(value===branch.right.root){
-  if(branch.right.right===null&&branch.right.left==null){
 
-    branch.right=null
+//  if(value==branch.r){
+//   // this.nodeDelete(branch)
+  
+//   return branch ;
+//  }
+
+if (branch.left!=null&&branch.right===null) {
+
+  if(branch.left.root===value){
+       this.nodeDelete(value,branch)
+
+       return
+  }
+  
+}
+
+else if (branch.left===null&&branch.right!=null){
+
+  if(branch.right.root===value){
+    this.nodeDelete(value,branch)
+return    
   }
 
-  else if(branch.right.right!=null&&branch.right.left===null){
 
-    branch.right=branch.right.right;
-  }
 
-  else if(branch.right.right!=null&&branch.right.left!=null){
+  
+}
+ 
+else if (branch.left!=null&&branch.right!=null){
+
+  if (branch.left.root===value||branch.right.root===value) {
     
-    let replaceValue=this.getTheSecondLargestNode(branch.right.right)
+    this.twoChilderenNodeDelete(value,branch)
+
+    return;
+  }
+
+}
+
+  if (value>branch.root) {
+    return this.delete(value,branch.right)
+  } else(value<branch.root); {
+    return this.delete(value,branch.left) 
+  }
+
+}
+
+
+nodeDelete(value,branch){
+
+  if (branch.left===null&&branch.right!==null) {
    
-    branch.right.root=replaceValue.left.root;
-   replaceValue.left=null
+  
+    branch.right=this.replacingChildrenNode(branch.right)
+
+    console.log(branch.right)
+return
+  }
+
+  else (branch.left!=null &&branch.right==null);{
+
     
-    console.log(replaceValue)
+   
+    branch.left=this.replacingChildrenNode(branch.left)
 
+    console.log(branch.left)
+
+    return
   }
-
-}
-
-else if (value===branch.left.root){
-
-  if (branch.left.left===null&&branch.left.right===null) {
-    branch.left=null
-  
-    
-  }
-
-
-  else if(branch.left.left!=null&&branch.left.right===null){
-
-      branch.left=branch.left.right
-     
-
-  }
- else if(branch.left.left===null&&branch.left.right!=null){
-
-      branch.left=branch.left.right
-     
-
-  }
-  else if(branch.right.right!=null&&branch.right.left!=null){
-
-    let replaceValue=this.getTheSecondLargestNode(branch)
-console.log("shaha")
-
-
-branch.left.root=replaceValue.right.root;
-
-    replaceValue.right=replaceValue.right.right
-
-
-  }
-
-  
-
-}
-else if(value>branch.root){
-
-  this.delete(value,branch.right)
-}
-
-else if(value<branch.root){
-  this.delete(value,branch.left)
 
 
 }
 
-else if(branch.root===value){
-let oldNode=branch;
-console.log("shshs")
 
-let replaceValue=this.getTheSecondLargestNode(branch.right)
-oldNode.root=replaceValue.left.root
+twoChilderenNodeDelete(value,branch){
+
+if(branch.left.root===value){
+
+  let nextNode=(branch.left.left!=null)?branch.left.left:null;
+  branch.left=this.replacingChildrenNode(branch.left);
 
 
-if (replaceValue.left.right!=null) {
-  replaceValue.left=replaceValue.left.right
 
+return
+}
+
+let nextNode=(branch.right.right!=null)?branch.right.right:null;
+branch.right=this.replacingChildrenNode(branch.right);
+
+
+
+}
+
+
+replacingChildrenNode(branch){
+if(branch.left!=null&&branch.right==null){
+
+  return branch.left
+}
+
+else if(branch.left==null&&branch.right!=null){
+
+  return branch.right
+}
+
+else(branch.left!=null&&branch.right!=null);{
+
+  this.getSecondLargestNode(branch.ri)
+}
+
+return null;  
+
+
+}
+
+getSecondLargestNode(node){
+  if(node.left==null){
+
+    return node
+  }
+
+  return this.getSecondLargestNode(node)
 
   
-}
-
-
-}
-
-
-return branch
-}
-
-getTheSecondLargestNode(node,secondSmallest=undefined){
-
-  if(node.left===null){
-
-    secondSmallest=node
-
-return secondSmallest
-
-
-  }
-
-  else if(node.left.left===null){
-    secondSmallest=node
-
-return secondSmallest
-
-  }
-
-
-
-
-
-
-  return this.getTheSecondLargestNode(node.left,secondSmallest)
-
-
 
 
 
@@ -310,10 +314,16 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-trial.insert(3)
+console.log(trial.delete(1))
+trial.delete(17)
+trial.delete(2)
+
+trial.delete(4)
 
 
 prettyPrint(trial.root)
+
+
 
 
 
