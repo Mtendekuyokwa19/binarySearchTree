@@ -106,11 +106,16 @@ insert(value,branch=this.root){
 
 delete(value,branch=this.root){
 
-//  if(value==branch.r){
-//   // this.nodeDelete(branch)
-  
-//   return branch ;
-//  }
+ if(value==branch.root){
+let temporaryRoot=this.getSecondLargestNode(branch.right)
+
+
+  branch.root=temporaryRoot.root
+
+  this.delete(temporaryRoot.root,branch.right)
+
+  return branch ;
+ }
 
 if (branch.left!=null&&branch.right===null) {
 
@@ -158,14 +163,16 @@ nodeDelete(value,branch){
 
   if (branch.left===null&&branch.right!==null) {
    
-  
-    branch.right=this.replacingChildrenNode(branch.right)
+    
+    branch.right.root=this.replacingChildrenNode(branch.right).root
 
-    console.log(branch.right)
+    
 return
   }
 
-  else (branch.left!=null &&branch.right==null);{
+
+
+  else if (branch.left!=null &&branch.right==null){
 
     
    
@@ -176,6 +183,13 @@ return
     return
   }
 
+  else(branch.left!=null&& branch.right!=null );{
+
+    let secondLargestNode=this.replacingChildrenNode(branch);
+    console.log(secondLargestNode)
+
+
+  }
 
 }
 
@@ -183,17 +197,21 @@ return
 twoChilderenNodeDelete(value,branch){
 
 if(branch.left.root===value){
+ 
+  branch.left=branch.left.left
+  
 
-  let nextNode=(branch.left.left!=null)?branch.left.left:null;
-  branch.left=this.replacingChildrenNode(branch.left);
-
+ 
 
 
 return
 }
 
-let nextNode=(branch.right.right!=null)?branch.right.right:null;
-branch.right=this.replacingChildrenNode(branch.right);
+
+
+branch.right=branch.right.right;
+// temporaryRoot.left=null
+// this.nodeDelete(temporaryRoot.left.root,temporaryRoot)
 
 
 
@@ -213,7 +231,7 @@ else if(branch.left==null&&branch.right!=null){
 
 else(branch.left!=null&&branch.right!=null);{
 
-  this.getSecondLargestNode(branch.ri)
+  return this.getSecondLargestNode(branch.right)
 }
 
 return null;  
@@ -222,12 +240,13 @@ return null;
 }
 
 getSecondLargestNode(node){
+
   if(node.left==null){
 
     return node
   }
 
-  return this.getSecondLargestNode(node)
+  return this.getSecondLargestNode(node.left)
 
   
 
@@ -298,7 +317,7 @@ function mergeSort(array) {
     return newArray;
   }
 
- let trial=new Tree([1,23,45,67,2,2,6,9,17,5,5,2,4,67,8,9,53,223])
+ let trial=new Tree([1,23,45,67,2,2,6,9,17,5,5,2,4,67,8,9,53,223,10,20,30,50,50])
 
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -314,11 +333,10 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
-console.log(trial.delete(1))
-trial.delete(17)
-trial.delete(2)
 
-trial.delete(4)
+trial.delete(45)
+
+// trial.delete(23)
 
 
 prettyPrint(trial.root)
