@@ -104,157 +104,33 @@ insert(value,branch=this.root){
  return branch
 }
 
-delete(value,branch=this.root){
+delete(value,node=this.root){
 
- if(value==branch.root){
-let temporaryRoot=this.getSecondLargestNode(branch.right)
+  if (!node) return null;
 
+  if (value < node.value) {
+    node.left = this.delete(value, node.left);
+  } else if (value > node.value) {
+    node.right = this.delete(value, node.right);
+  } else {
+    if (!node.left) return node.right;
+    else if (!node.right) return node.left;
 
-  branch.root=temporaryRoot.root
-
-  this.delete(temporaryRoot.root,branch.right)
-
-  return branch ;
- }
-
-if (branch.left!=null&&branch.right===null) {
-
-  if(branch.left.root===value){
-       this.nodeDelete(value,branch)
-
-       return
-  }
-  
-}
-
-else if (branch.left===null&&branch.right!=null){
-
-  if(branch.right.root===value){
-    this.nodeDelete(value,branch)
-return    
+    node.value = this.findMinValue(node.right);
+    node.right = this.delete(node.value, node.right);
   }
 
-
-
-  
+  return node
 }
- 
-else if (branch.left!=null&&branch.right!=null){
 
-  if (branch.left.root===value||branch.right.root===value) {
-    
-    this.twoChilderenNodeDelete(value,branch)
-
-    return;
+findMinValue(node) {
+  let minv = node.value;
+  while (node.left) {
+    minv = node.left.value;
+    node = node.left;
   }
-
+  return minv;
 }
-
-  if (value>branch.root) {
-    return this.delete(value,branch.right)
-  } else(value<branch.root); {
-    return this.delete(value,branch.left) 
-  }
-
-}
-
-
-nodeDelete(value,branch){
-
-  if (branch.left===null&&branch.right!==null) {
-   
-    
-    branch.right.root=this.replacingChildrenNode(branch.right).root
-
-    
-return
-  }
-
-
-
-  else if (branch.left!=null &&branch.right==null){
-
-    
-   
-    branch.left=this.replacingChildrenNode(branch.left)
-
-    console.log(branch.left)
-
-    return
-  }
-
-  else(branch.left!=null&& branch.right!=null );{
-
-    let secondLargestNode=this.replacingChildrenNode(branch);
-    console.log(secondLargestNode)
-
-
-  }
-
-}
-
-
-twoChilderenNodeDelete(value,branch){
-
-if(branch.left.root===value){
- 
-  branch.left=branch.left.left
-  
-
- 
-
-
-return
-}
-
-
-
-branch.right=branch.right.right;
-// temporaryRoot.left=null
-// this.nodeDelete(temporaryRoot.left.root,temporaryRoot)
-
-
-
-}
-
-
-replacingChildrenNode(branch){
-if(branch.left!=null&&branch.right==null){
-
-  return branch.left
-}
-
-else if(branch.left==null&&branch.right!=null){
-
-  return branch.right
-}
-
-else(branch.left!=null&&branch.right!=null);{
-
-  return this.getSecondLargestNode(branch.right)
-}
-
-return null;  
-
-
-}
-
-getSecondLargestNode(node){
-
-  if(node.left==null){
-
-    return node
-  }
-
-  return this.getSecondLargestNode(node.left)
-
-  
-
-
-
-
-}
-
 }
 
 
@@ -334,7 +210,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 
-trial.delete(45)
+trial.delete(10)
 
 // trial.delete(23)
 
