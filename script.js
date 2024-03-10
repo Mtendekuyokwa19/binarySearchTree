@@ -131,7 +131,74 @@ findMinValue(node) {
   }
   return minv;
 }
+
+levelOrder( runOperation,Node=this.root){
+
+  if (Node===null) {
+
+    return
+  }
+
+  let keepPositions=new Queue();
+  keepPositions.enqueue(Node);
+
+
+  while (!(keepPositions==null)) {
+    let currentIndex=keepPositions.peek();
+    if(currentIndex===undefined) return;
+  runOperation(currentIndex.root)
+
+   
+
+    if(currentIndex.left !=null){
+      keepPositions.enqueue(currentIndex.left)
+    }
+    if(currentIndex.right !=null){
+keepPositions.enqueue(currentIndex.right);
+    }
+    keepPositions.dequeue()
+    
+  }
+
+
 }
+
+
+}
+
+
+class Queue {
+	constructor() {
+		this.items = {}
+		this.frontIndex = 0
+		this.backIndex = 0
+	}
+	enqueue(item) {
+		this.items[this.backIndex] = item
+		this.backIndex++
+		return item + ' inserted'
+	}
+	dequeue() {
+		const item = this.items[this.frontIndex]
+		delete this.items[this.frontIndex]
+		this.frontIndex++
+		return item
+	}
+	peek() {
+		return this.items[this.frontIndex]
+	}
+
+isEmpty() {
+
+	return this.items.length == 0;
+}
+
+	get printQueue() {
+		return this.items;
+	}
+}
+
+
 
 
 
@@ -210,12 +277,15 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 
-trial.delete(10)
+// trial.delete(10)
 
 // trial.delete(23)
+trial.levelOrder(printOutValues)
+function printOutValues(params) {
+  console.log(params+"=>")
+}
 
-
-prettyPrint(trial.root)
+// prettyPrint(trial.root)
 
 
 
