@@ -197,45 +197,26 @@ postOrder(runOperation,Node=this.root){
   runOperation(Node.root)
 
 }
-height(Node=this.root){
-
-  let left=this.heightLeft(Node);
-  let right=this.heightRight(Node)
- 
-  if(right>left){
-
-    return  right
-  }
-
-  return left;
 
 
-
-}
-
-heightRight(Node=this.root,length=0){
-
-  if(Node===null){
-
-    return length
-  }
- length++;
-
- return this.heightRight(Node.right,length);
-
-
-
-}
-
-heightLeft(Node=this.root,length=0){
+height(Node=this.root,length=0,NumbersLength=[]){
   if (Node==null) 
   {
   
-  return length  
+    
+    NumbersLength[NumbersLength.length]=length
+    NumbersLength.sort()
+
+  return NumbersLength[NumbersLength.length-1]
   }
 
-  length++;
-  return this.heightLeft(Node.left,length)
+ length++;
+  this.height(Node.left,length,NumbersLength);
+  this.height(Node.right,length,NumbersLength)
+
+  return NumbersLength[NumbersLength.length-1]-1;
+  
+
 }
 }
 
@@ -350,15 +331,10 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 
-// trial.delete(10)
 
-// trial.delete(23)
-// trial.inorder(printOutValues)
-// function printOutValues(params) {
-//   console.log(params+"=>")
-// }
-
-// prettyPrint(trial.root)
+trial.insert(21)
+trial.insert(22)
+prettyPrint(trial.root)
 console.log(trial.height())
 
 
