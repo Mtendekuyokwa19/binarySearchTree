@@ -163,7 +163,80 @@ keepPositions.enqueue(currentIndex.right);
 
 }
 
+inorder(runOperation,Node=this.root){
+  if(Node==null){
 
+    return
+  }
+
+  this.inorder(runOperation,Node.left);
+  runOperation(Node.root);
+  this.inorder(runOperation,Node.right)
+
+
+}
+
+preorder(runOperation,Node=this.root){
+
+  if(Node==null){
+    return
+  }
+  runOperation(Node.root);
+this.preorder(runOperation,Node.left);
+this.preorder(runOperation,Node.right);
+
+}
+
+postOrder(runOperation,Node=this.root){
+
+  if(Node==null){
+    return
+  }
+  this.postOrder(runOperation,Node.left)
+  this.postOrder(runOperation,Node.right)
+  runOperation(Node.root)
+
+}
+height(Node=this.root){
+
+  let left=this.heightLeft(Node);
+  let right=this.heightRight(Node)
+ 
+  if(right>left){
+
+    return  right
+  }
+
+  return left;
+
+
+
+}
+
+heightRight(Node=this.root,length=0){
+
+  if(Node===null){
+
+    return length
+  }
+ length++;
+
+ return this.heightRight(Node.right,length);
+
+
+
+}
+
+heightLeft(Node=this.root,length=0){
+  if (Node==null) 
+  {
+  
+  return length  
+  }
+
+  length++;
+  return this.heightLeft(Node.left,length)
+}
 }
 
 
@@ -280,13 +353,13 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 // trial.delete(10)
 
 // trial.delete(23)
-trial.levelOrder(printOutValues)
-function printOutValues(params) {
-  console.log(params+"=>")
-}
+// trial.inorder(printOutValues)
+// function printOutValues(params) {
+//   console.log(params+"=>")
+// }
 
 // prettyPrint(trial.root)
-
+console.log(trial.height())
 
 
 
