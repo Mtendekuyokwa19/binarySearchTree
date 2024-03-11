@@ -104,32 +104,39 @@ insert(value,branch=this.root){
  return branch
 }
 
-delete(value,node=this.root){
-
+delete(value, node = this.root) {
   if (!node) return null;
 
-  if (value < node.value) {
+  if (value < node.root) {
     node.left = this.delete(value, node.left);
-  } else if (value > node.value) {
+  } else if (value > node.root) {
     node.right = this.delete(value, node.right);
   } else {
     if (!node.left) return node.right;
     else if (!node.right) return node.left;
 
-    node.value = this.findMinValue(node.right);
-    node.right = this.delete(node.value, node.right);
+    node.root = this.findMinValue(node.right);
+    node.right = this.delete(node.root, node.right);
   }
 
-  return node
+  return node;
 }
 
 findMinValue(node) {
-  let minv = node.value;
+  let minv = node.root;
   while (node.left) {
-    minv = node.left.value;
+    minv = node.left.root;
     node = node.left;
   }
   return minv;
+}
+
+find(value, node = this.root) {
+  if (!node) return null;
+
+  if (value === node.value) return node;
+  else if (value < node.value) return this.find(value, node.left);
+  else return this.find(value, node.right);
 }
 
 levelOrder( runOperation,Node=this.root){
@@ -241,6 +248,25 @@ if(Node.root>value){
 
 
 }
+
+isBalannced(Node=this.root){
+
+let left=this.height(Node.left);
+let right=this.height(Node.right);
+
+if(!(Math.abs(left-right)>1)){
+
+
+return true
+
+}
+
+return false
+
+
+}
+
+
 }
 
 
@@ -355,12 +381,13 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 
 
-trial.insert(21)
-trial.insert(22)
+trial.delete(17)
+
 prettyPrint(trial.root)
 // console.log(trial.height())
 
 
-console.log(trial.depth(21))
+console.log(trial.isBalannced())
+
 
 
