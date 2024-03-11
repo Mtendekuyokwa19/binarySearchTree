@@ -218,6 +218,29 @@ height(Node=this.root,length=0,NumbersLength=[]){
   
 
 }
+
+depth(value,Node=this.root,length=0){
+if(Node==null){
+  return length
+}
+  if(Node.root===value){
+
+   
+    return length
+  }
+  length++;
+if(Node.root>value){
+  return this.depth(value,Node.left,length);
+}
+  else(Node.root<value);{
+    return this.depth(value,Node.right,length)
+  }
+ 
+ 
+ 
+
+
+}
 }
 
 
@@ -335,9 +358,9 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 trial.insert(21)
 trial.insert(22)
 prettyPrint(trial.root)
-console.log(trial.height())
+// console.log(trial.height())
 
 
-
+console.log(trial.depth(21))
 
 
