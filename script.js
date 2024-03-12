@@ -254,6 +254,7 @@ isBalannced(Node=this.root){
 let left=this.height(Node.left);
 let right=this.height(Node.right);
 
+console.log(left,right)
 if(!(Math.abs(left-right)>1)){
 
 
@@ -263,6 +264,24 @@ return true
 
 return false
 
+
+}
+
+
+rebalance(Node=this.root,array=[]){
+
+  if(Node==null){
+
+    this.array=array;
+    this.buildTree(array);
+
+    return
+  }
+  array.push(Node.root);
+  this.rebalance(Node.left,array);
+  this.rebalance(Node.right,array);
+
+  return array
 
 }
 
@@ -381,13 +400,17 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 
 
-trial.delete(17)
-
+// trial.delete(17)
+trial.insert(50)
+trial.insert(100)
+trial.insert(99)
+trial.rebalance()
 prettyPrint(trial.root)
 // console.log(trial.height())
 
 
 console.log(trial.isBalannced())
+
 
 
 
