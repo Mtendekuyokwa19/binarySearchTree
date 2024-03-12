@@ -254,7 +254,6 @@ isBalannced(Node=this.root){
 let left=this.height(Node.left);
 let right=this.height(Node.right);
 
-console.log(left,right)
 if(!(Math.abs(left-right)>1)){
 
 
@@ -382,7 +381,7 @@ function mergeSort(array) {
     return newArray;
   }
 
- let trial=new Tree([1,23,45,67,2,2,6,9,17,5,5,2,4,67,8,9,53,223,10,20,30,50,50])
+
 
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -400,17 +399,60 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 
 
-// trial.delete(17)
-trial.insert(50)
-trial.insert(100)
-trial.insert(99)
-trial.rebalance()
-prettyPrint(trial.root)
-// console.log(trial.height())
+function createRandomNumbers(randomizeNum) {
+  let arrayOfIntergers=new Array();
 
+  for (let i = 0; i <randomizeNum ; i++) {
 
-console.log(trial.isBalannced())
+    let randomNumber=Math.floor(Math.random()*(5*i));
 
+    if(randomNumber<100) arrayOfIntergers.push(randomNumber);
+  
+    
+  }
 
+  return arrayOfIntergers
+}
 
+function createRandomNumbersAbove100(randomizeNum) {
+  let arrayOfIntergers=new Array();
 
+  for (let i = 0; i <randomizeNum ; i++) {
+
+    let randomNumber=Math.floor(Math.random()*(5*i));
+
+    if(randomNumber>100) arrayOfIntergers.push(randomNumber);
+  
+    
+  }
+
+  return arrayOfIntergers
+}
+
+let treeOfIntergers=new Tree(createRandomNumbers(45));
+
+function printElement(element) {
+
+  console.log(element)
+}
+insertAbove100();
+treeOfIntergers.levelOrder(printElement)
+treeOfIntergers.postOrder(printElement)
+treeOfIntergers.preorder(printElement)
+treeOfIntergers.inorder(printElement)
+treeOfIntergers.rebalance()
+console.log(treeOfIntergers.isBalannced())
+prettyPrint(treeOfIntergers.root)
+function insertAbove100() 
+{
+let arrayAbove100=createRandomNumbers(100);
+
+for (let i = 0; i < arrayAbove100.length; i++) {
+ treeOfIntergers.insert(arrayAbove100[i])
+  
+}
+}
+treeOfIntergers.levelOrder(printElement)
+treeOfIntergers.postOrder(printElement)
+treeOfIntergers.preorder(printElement)
+treeOfIntergers.inorder(printElement)
